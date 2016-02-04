@@ -1,3 +1,8 @@
+<?php
+header("Location:test.html");
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,9 +12,8 @@
 <body>
 	<h1>Welcome to my page.</h1>
 <?php
-for ($i = 0; i < 10; $i++)
+for ($i = 0; $i < 10; $i++)
 {
-	lskdjflks
 	echo "This is from php" . ($i + 1) . "<br>\n";
 
 }

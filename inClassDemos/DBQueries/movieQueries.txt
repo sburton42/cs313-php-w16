@@ -1,0 +1,72 @@
+CREATE TABLE movie
+(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(50) NOT NULL,
+	subTitle VARCHAR(50),
+	rating VARCHAR(5),
+	year INT(5)
+)
+
+CREATE TABLE actor
+(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	firstName VARCHAR(40) NOT NULL,
+	lastName VARCHAR(40)
+)
+
+CREATE TABLE actorMovie
+(
+	actorId INT NOT NULL,
+	movieId INT NOT NULL,
+	FOREIGN KEY (actorId) REFERENCES actor(id),
+	FOREIGN KEY (movieId) REFERENCES movie(id)
+)
+
+INSERT INTO movie(title, subTitle, rating, year)
+  VALUES('The Avengers', 'Age of Ultron', 'PG-13', 2015);
+
+INSERT INTO movie(title, subTitle, rating, year)
+  VALUES
+  ('Star Wars VII', 'The Force Awakens', 'PG-13', 2015),
+  ('Star Wars VI', 'Return of the Jedi', 'PG', 1983);
+
+INSERT INTO actor(firstName, lastName)
+  VALUES
+  ('Mark', 'Hamill'),
+  ('Carrie', 'Fisher'),
+  ('Robert', 'Downey Jr.'),
+  ('Chris', 'Evans');
+
+INSERT INTO actorMovie(actorId, movieId)
+  VALUES
+  (1, 2),
+  (1, 3),
+  (2, 2),
+  (2, 3),
+  (4, 1);
+
+INSERT INTO actorMovie(actorId, movieId)
+  VALUES
+  (3, (SELECT id FROM movie WHERE title='The Avengers'));  
+
+INSERT INTO actorMovie(actorId, movieId)
+  VALUES
+  (13, (SELECT id FROM movie WHERE title='The Avengers'));  
+
+SELECT a.firstName, a.lastName FROM actorMovie am
+ JOIN actor a ON am.actorId = a.id
+ JOIN movie m ON am.movieId = m.id
+ WHERE m.title='The Avengers';
+
+
+SELECT a.firstName, a.lastName, m.title FROM actorMovie am
+ JOIN actor a ON am.actorId = a.id
+ JOIN movie m ON am.movieId = m.id
+ WHERE m.title LIKE '%Star Wars%';
+
+
+
+
+
+
+
